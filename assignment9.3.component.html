@@ -1,0 +1,45 @@
+<div class="container">
+  <h1>User Form Data</h1>
+  <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm.value)" novalidate>
+    <div class="formgroup">
+      <label> Name </label>
+      <input type="text" class="form-control" name="name" required [(ngModel)]="myName" minlength="4"  pattern="^[a-zA-Z]*$"><br>
+      <div *ngIf="nameRef.errors && (nameRef.dirty||nameRef.touched)" class="alert alert-danger">
+        <div [hidden]="!nameRef.errors.required">
+                 Please enter your name.
+        </div>
+                  <div [hidden]="!nameRef.errors.minlength">
+                 Please enter atleast four characters
+        </div>
+                <div [hidden]="!nameRef.errors.pattern">
+                                    Please enter alphabets.
+                                </div>
+        </div>
+      <p>{{myName}}</p>
+      </div>
+    
+    <div class="formgroup">
+      <label> Email </label>
+      <input type="text" class="form-control" #nameRef="ngModel" name="email" required [(ngModel)]="email"><br>
+      <div [hidden]="nameRef.valid|| nameRef.pristine" class="alert alert-danger">
+        Please enter your email address.
+      </div>
+      <b>{{nameRef.className}}</b>
+      <p>{{email}}</p>
+      </div>
+    <div class="formgroup">
+      <label> Password </label>
+      <input type="password" class="form-control" name="password" required ngModel><br>
+      </div>
+     <div class="form-group">
+       <label> City</label>
+                            <select class="txt-box" name="city" [(ngModel)]="city" class="form-control">
+                            <option [value]=" "   >Select Option </option>
+                            <option *ngFor="let city of cities">
+                                {{city.name}}
+                            </option>
+                         </select>
+                        </div>
+    <button [disabled]="!userForm.form.valid" type="submit" class="btn btn-primary">Submit</button>
+    </form>
+  </div>
